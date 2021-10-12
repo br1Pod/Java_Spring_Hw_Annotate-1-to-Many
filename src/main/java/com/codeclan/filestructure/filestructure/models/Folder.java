@@ -1,8 +1,10 @@
 package com.codeclan.filestructure.filestructure.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,8 +23,14 @@ public class Folder {
     @OneToMany(mappedBy = "folder", fetch = FetchType.LAZY)
     private List<File> files;
 
+    @JsonIgnoreProperties({"folders"})
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Folder(String title) {
         this.title = title;
+        this.files = new ArrayList<File>();
     }
 
     public Folder() {
@@ -50,5 +58,9 @@ public class Folder {
 
     public void setFiles(List<File> files) {
         this.files = files;
+    }
+
+    public void addFile(File file){
+        this.files.add(file);
     }
 }
