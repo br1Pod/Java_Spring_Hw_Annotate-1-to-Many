@@ -1,9 +1,9 @@
 package com.codeclan.filestructure.filestructure.repositories;
 
-public interface FolderRepository {
-    Object findAll();
+import com.codeclan.filestructure.filestructure.models.Folder;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-    Object findById(Long id);
-
-    void save(Folder folder);
+@Repository
+public interface FolderRepository extends JpaRepository<Folder, Long> {
 }
